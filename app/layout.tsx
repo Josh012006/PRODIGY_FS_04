@@ -22,7 +22,7 @@ export default function RootLayout({
         <link rel="icon" href="/logo.png" />
         <script src="https://kit.fontawesome.com/f1ed3a95ea.js" crossOrigin="anonymous" defer></script>
       </head>
-      <body className={`text-sm lg:text-lg h-full min-h-screen ${roboto.className}`}>
+      <body className={`text-sm lg:text-base min-h-screen h-full ${roboto.className}`}>
         <ReduxProvider>
           {children}
         </ReduxProvider>

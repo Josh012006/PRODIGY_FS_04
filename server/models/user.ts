@@ -7,21 +7,42 @@ const userSchema = new mongoose.Schema({
     name: String,
     username: String,
     phone: String,
-    profilePicture: String,
-    bgImage: String,
-    story: String,
+    profilePicture: {
+        type: String,
+        default: "unknown.jpg"
+    },
+    bgImage: {
+        type: String,
+        default: "bg.jpg"
+    },
+    story: {
+        type: String,
+        default: ""
+    },
     status: {
         type: String,
         default: "Hey there! I am using Echo."
     },
-    present : Boolean,
+    present : {
+        type: Boolean,
+        default: false
+    },
     statusPrivacy: {
         type: String,
         default: "public"
     },
-    contacts: Array,
-    conversations: Array,
-    groups: Array,
+    contacts: {
+        type: Array,
+        default: []
+    },
+    conversations: {
+        type: Array,
+        default: []
+    },
+    groups: {
+        type: Array,
+        default: []
+    },
 }, { timestamps: true });
 
 

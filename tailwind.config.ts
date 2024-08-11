@@ -13,7 +13,12 @@ const config: Config = {
         "crystal": "#A3D0DA",
         "isabelline": "#F2ECEA",
         "bone": "#E2D8CD",
-        "grullo": "#B39D91"
+        "grullo": "#B39D91",
+        "pastel-blue": "#B7CAD1",
+        "alice-blue": "#E4EEF3",
+        "soft-mint": "#E2F8F0",
+        "charcoal": "#2A3A45",
+        "aqua-splash": "#8ACED2",
       }
     },
   },
