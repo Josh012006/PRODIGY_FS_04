@@ -1,6 +1,9 @@
 import type { Metadata } from "next";
 import "./globals.css";
 
+import { Roboto } from "next/font/google";
+const roboto = Roboto({ subsets: ["latin"], weight: "400" });
+
 
 export const metadata: Metadata = {
   title: "Echo",
@@ -16,8 +19,9 @@ export default function RootLayout({
     <html lang="en">
       <head>
         <link rel="icon" href="/logo.png" />
+        <script src="https://kit.fontawesome.com/f1ed3a95ea.js" crossOrigin="anonymous" defer></script>
       </head>
-      <body className="text-sm lg:text-lg">{children}</body>
+      <body className={`text-sm lg:text-lg h-full min-h-screen ${roboto.className}`}>{children}</body>
     </html>
   );
 }

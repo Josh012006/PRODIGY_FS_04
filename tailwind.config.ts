@@ -8,11 +8,13 @@ const config: Config = {
   ],
   theme: {
     extend: {
-      backgroundImage: {
-        "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
-        "gradient-conic":
-          "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
-      },
+      backgroundColor: {
+        "ocean-call": "#2D6D90",
+        "crystal": "#A3D0DA",
+        "isabelline": "#F2ECEA",
+        "bone": "#E2D8CD",
+        "grullo": "#B39D91"
+      }
     },
   },
   plugins: [],
