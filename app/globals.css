@@ -2,13 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-body {
-  background-image: linear-gradient(rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.2)), url('/bg.jpg');
-  
-  background-size: cover;
-  background-repeat: no-repeat;
-}
-
 @layer utilities {
   .text-balance {
     text-wrap: balance;
