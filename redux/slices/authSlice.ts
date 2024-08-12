@@ -1,6 +1,9 @@
 import User from "@/interfaces/user";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
+import Cookies from "js-cookie";
+import jwt from "jsonwebtoken";
+
 
 interface InitialState {
     isAuth: boolean,
@@ -17,14 +20,11 @@ const authSlice = createSlice({
     initialState,
     reducers: {
         logout: () => {
-            // ! Détruire le cookie lors de la déconnexion
-
+            Cookies.remove("echoToken");
             // Update le state
             return initialState;
         },
         login: (state, action) => {
-            // ! Stocker les informations de l'utilisateur dans un cookie // Le cookie expirera après 5 jours
-
             // Update le state avec les informations du user
             return {
                 isAuth: true,
@@ -32,9 +32,20 @@ const authSlice = createSlice({
             };
         },
         loadUserFromCookie: (state) => {
-            // ! Récupérer les informations de l'utilisateur depuis le cookie
+            const cookie = Cookies.get("echoToken");
 
             // Update le state avec les informations du user
+            if (cookie) {
+
+                const user = jwt.verify(JSON.parse(cookie), process.env.JWT_SECRET as string);
+
+                return {
+                    isAuth: true,
+                    infos: user as User
+                }
+            }
+
+            return initialState;
         }
     }
 });

@@ -2,15 +2,20 @@
 
 import ErrorAlert from "@/components/ErrorAlert";
 import Loader from "@/components/Loader";
+import { login } from "@/redux/slices/authSlice";
+import { AppDispatch } from "@/redux/store";
 import axios from "axios";
 import Link from "next/link";
 import { FormEvent, useState } from "react"
+import { useDispatch } from "react-redux";
 
 
 export default function LoginPage() {
 
     const [error, setError] = useState("");
     const [loading, setLoading] = useState(false);
+
+    const dispatch = useDispatch<AppDispatch>();
 
     const handleLogin = async (e: FormEvent<HTMLFormElement>) => {
         try {
@@ -32,9 +37,11 @@ export default function LoginPage() {
             });
 
             if(response.status === 200) {
-                console.log("User logged in successfully");
+                console.log("User logged in successfully ", response.data);
                 setLoading(false);
-                //! dispatch login action
+
+                dispatch(login(response.data));
+
                 window.location.href = '/';
             }
             else if(response.status === 404) {
@@ -55,7 +62,7 @@ export default function LoginPage() {
 
     return (
         <div className="min-h-screen h-full bg-alice-blue py-10">
-            <h1 className="text-center text-xl sm:text-3xl pt-20 pb-16 font-bold">Login Page</h1>
+            <h1 className="text-center text-xl sm:text-3xl pt-20 pb-10 font-bold">Login Page</h1>
             {error && <ErrorAlert>{error}</ErrorAlert>}
             {loading && <Loader />}
             <form className="bg-crystal rounded-lg p-6 w-11/12 sm:w-1/4 flex flex-col mx-auto" onSubmit = {handleLogin} id="loginForm">
