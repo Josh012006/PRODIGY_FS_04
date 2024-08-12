@@ -2,12 +2,9 @@
 
 import ErrorAlert from "@/components/ErrorAlert";
 import Loader from "@/components/Loader";
-import { login } from "@/redux/slices/authSlice";
-import { AppDispatch } from "@/redux/store";
 import axios from "axios";
 import Link from "next/link";
 import { FormEvent, useState } from "react"
-import { useDispatch } from "react-redux";
 
 
 export default function LoginPage() {
@@ -15,11 +12,10 @@ export default function LoginPage() {
     const [error, setError] = useState("");
     const [loading, setLoading] = useState(false);
 
-    const dispatch = useDispatch<AppDispatch>();
-
     const handleLogin = async (e: FormEvent<HTMLFormElement>) => {
         try {
             e.preventDefault();
+            window.scrollTo(0, 0);
 
             setError('');
             setLoading(true);
@@ -40,8 +36,6 @@ export default function LoginPage() {
                 console.log("User logged in successfully ", response.data);
                 setLoading(false);
 
-                dispatch(login(response.data));
-
                 window.location.href = '/';
             }
             else if(response.status === 404) {
@@ -61,17 +55,17 @@ export default function LoginPage() {
     }
 
     return (
-        <div className="min-h-screen h-full bg-alice-blue py-10">
+        <div className="min-h-screen h-full bg-isabelline py-10">
             <h1 className="text-center text-xl sm:text-3xl pt-20 pb-10 font-bold">Login Page</h1>
             {error && <ErrorAlert>{error}</ErrorAlert>}
             {loading && <Loader />}
-            <form className="bg-crystal rounded-lg p-6 w-11/12 sm:w-1/4 flex flex-col mx-auto" onSubmit = {handleLogin} id="loginForm">
+            <form className="bg-stone-500 rounded-lg p-6 w-11/12 sm:w-1/4 flex flex-col mx-auto" onSubmit = {handleLogin} id="loginForm">
                 <label htmlFor="email" className="text-lg font-semibold my-3">Email</label>
-                <input type="email" name="email" id="email" className="rounded-md h-10 p-2 border border-black" required />
+                <input type="email" name="email" id="email" className="rounded-md h-10 p-2 border border-black" placeholder="example@gmail.com" required />
                 <label htmlFor="password" className="text-lg font-semibold my-3">Password</label>
-                <input type="password" name="password" id="password" className="rounded-md h-10 p-2 border border-black" required />
-                <button type="submit" form="loginForm" className="mx-auto w-36 rounded-md bg-charcoal h-10 hover:bg-ocean-call text-white my-4">Login</button>
-                <p>Don&apos;t have an account yet? <Link href="/register" className="text-blue-800">Register</Link></p>
+                <input type="password" name="password" id="password" className="rounded-md h-10 p-2 border border-black" placeholder="Password" required />
+                <button type="submit" form="loginForm" className="mx-auto w-36 rounded-md bg-stone-800 h-10 hover:bg-stone-700 text-white my-4">Login</button>
+                <p>Don&apos;t have an account yet? <Link href="/register" className="text-stone-300">Register</Link></p>
             </form>
         </div>
     )

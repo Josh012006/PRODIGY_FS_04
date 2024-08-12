@@ -3,4 +3,7 @@ export default interface Conversation {
     members: string[],
     messages: string[],
     medias: string[],
+    createdAt: Date,
+    updatedAt: Date,
+    __v: number
 }

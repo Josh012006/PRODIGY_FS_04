@@ -6,4 +6,7 @@ export default interface Group {
     groupPicture: string,
     messages: string[],
     medias: string[],
+    createdAt: Date,
+    updatedAt: Date,
+    __v: number
 }

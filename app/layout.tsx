@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 import { Roboto } from "next/font/google";
-import ReduxProvider from "@/redux/Provider";
 const roboto = Roboto({ subsets: ["latin"], weight: "400" });
 
 
@@ -22,10 +21,8 @@ export default function RootLayout({
         <link rel="icon" href="/logo.png" />
         <script src="https://kit.fontawesome.com/f1ed3a95ea.js" crossOrigin="anonymous" defer></script>
       </head>
-      <body className={`text-sm lg:text-base min-h-screen h-full ${roboto.className}`}>
-        <ReduxProvider>
+      <body className={`text-sm lg:text-base min-h-screen h-full bg-isabelline ${roboto.className}`}>
           {children}
-        </ReduxProvider>
       </body>
     </html>
   );

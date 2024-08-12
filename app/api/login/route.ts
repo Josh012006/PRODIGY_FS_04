@@ -32,7 +32,7 @@ export async function POST(req: NextRequest) {
             else {
                 const response = NextResponse.json(user, {status: 200});
 
-                const token = jwt.sign({ ...user }, process.env.JWT_SECRET as string, { expiresIn: "20" });
+                const token = jwt.sign({ ...user }, process.env.JWT_SECRET as string, { expiresIn: "20d" });
                 response.cookies.set('echoToken', token, { httpOnly: true, sameSite: "strict" });
 
                 console.log('Successfully logged in!', user);

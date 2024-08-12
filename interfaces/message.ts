@@ -4,4 +4,7 @@ export default interface Message {
     receiver: string,
     type: string,
     content: string,
+    createdAt: Date,
+    updatedAt: Date,
+    __v: number
 }
