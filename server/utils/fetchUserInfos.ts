@@ -5,7 +5,6 @@ async function fetchUserInfos() {
         const response = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/user`, { validateStatus: (status) => status >= 200 });
 
         if(response.status === 200) {
-            console.log("User infos fetched successfully ", response.data);
             return(response.data);
         }
         else {
