@@ -2,11 +2,28 @@ import mongoose from "mongoose";
 
 
 
-const group = new mongoose.Schema({
+const groupSchema = new mongoose.Schema({
     name: { type: String, required: true },
     description: String,
     members: Array,
-    groupPicture: String,
-    messages: Array,
-    medias: Array,
+    groupPicture: {
+        type: String,
+        default: ""
+    },
+    messages: {
+        type: Array,
+        default: []
+    },
+    medias: {
+        type: Array,
+        default: []
+    },
 }, { timestamps: true });
+
+
+
+
+const groupModel = mongoose.models.Group || mongoose.model("Group", groupSchema);
+
+
+export default groupModel;

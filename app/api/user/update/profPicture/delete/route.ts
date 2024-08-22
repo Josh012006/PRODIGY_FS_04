@@ -5,6 +5,7 @@ import { NextRequest, NextResponse } from "next/server";
 
 import path from "path";
 import fs from "fs";
+import conversationModel from "@/server/models/conversation";
 
 
 const UPLOAD_DIR = path.resolve("public/users/profile_pictures");
@@ -28,6 +29,26 @@ export async function PATCH(req: NextRequest) {
             if(!update) {
                 throw Error("Update didn't work!")
             } 
+
+            const conversations = await conversationModel.find({ 
+                members: { $in: [_id] } 
+            });
+            
+            for (const conversation of conversations) {
+                const fileIndex = conversation.profilePictures.indexOf(oldFile);
+                
+                // Si le fichier est trouvé, retirer seulement une occurrence
+                if (fileIndex !== -1) {
+                    conversation.profilePictures.splice(fileIndex, 1); // Retire une seule occurrence
+                }
+                
+                // Ajouter un nouvel élément (ici une chaîne vide `""`)
+                conversation.profilePictures.push(""); 
+                
+                // Sauvegarder le document mis à jour
+                await conversation.save();
+            }
+            
 
             if(oldFile !== "") {
                 const pathToFile = path.resolve(UPLOAD_DIR, oldFile as string);

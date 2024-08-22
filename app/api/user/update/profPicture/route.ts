@@ -5,12 +5,12 @@ import path from "path";
 import fs from "fs";
 import { v4 as uuidv4 } from "uuid";
 import userModel from "@/server/models/user";
+import conversationModel from "@/server/models/conversation";
 
 const UPLOAD_DIR = path.resolve("public/users/profile_pictures");
 
 export async function PATCH(req: NextRequest) {
     try {
-
 
         await connectDB();
 
@@ -39,6 +39,26 @@ export async function PATCH(req: NextRequest) {
             // update the profile picture name
 
             const user = await userModel.findByIdAndUpdate(body._id, { profilePicture: uniqueFileName }, { new: true });
+
+            const conversations = await conversationModel.find({ 
+                members: { $in: [body._id] } 
+            });
+            
+            for (const conversation of conversations) {
+                const fileIndex = conversation.profilePictures.indexOf(body.oldFile);
+                
+                // Si le fichier est trouvé, retirer une seule occurrence
+                if (fileIndex !== -1) {
+                    conversation.profilePictures.splice(fileIndex, 1); // Retire une seule occurrence
+                }
+                
+                // Ajouter le nouvel élément (ici `uniqueFileName`)
+                conversation.profilePictures.push(uniqueFileName); 
+                
+                // Sauvegarder le document mis à jour
+                await conversation.save();
+            }
+            
 
             if(user) {
                 console.log(user);

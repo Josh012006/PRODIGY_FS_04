@@ -2,8 +2,17 @@ import mongoose from "mongoose";
 
 const conversationSchema = new mongoose.Schema({
     members: Array,
-    messages: Array,
-    medias: Array,
+    names: Array,
+    profilePictures: Array,
+    stories: Array,
+    messages: {
+        type: Array,
+        default: []
+    },
+    medias: {
+        type: Array,
+        default: []
+    },
 }, { timestamps: true });
 
 

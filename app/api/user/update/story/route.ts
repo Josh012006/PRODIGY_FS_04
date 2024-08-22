@@ -6,6 +6,7 @@ import fs from "fs";
 import path from "path";
 
 import { v4 as uuidv4 } from "uuid";
+import conversationModel from "@/server/models/conversation";
 
 
 const UPLOAD_DIR = path.resolve("public/users/stories");
@@ -40,6 +41,26 @@ export async function PATCH(req: NextRequest) {
 
             const user = await userModel.findByIdAndUpdate(body._id, { story: uniqueFileName }, { new: true });
 
+            const conversations = await conversationModel.find({ 
+                members: { $in: [body._id] } 
+            });
+            
+            for (const conversation of conversations) {
+                const storyIndex = conversation.stories.indexOf(body.oldStory);
+                
+                // Si l'histoire est trouvée, la retirer
+                if (storyIndex !== -1) {
+                    conversation.stories.splice(storyIndex, 1); // Retire seulement une occurrence
+                }
+                
+                // Ajouter un nouvel élément (ici `uniqueFileName`)
+                conversation.stories.push(uniqueFileName); 
+                
+                // Sauvegarder le document mis à jour
+                await conversation.save();
+            }
+            
+
             if(user) {
                 console.log(user);
 
@@ -65,6 +86,26 @@ export async function PATCH(req: NextRequest) {
 
         } else {
             const user = await userModel.findByIdAndUpdate(body._id, { story: "" }, { new: true });
+
+            const conversations = await conversationModel.find({ 
+                members: { $in: [body._id] } 
+            });
+            
+            for (const conversation of conversations) {
+                const storyIndex = conversation.stories.indexOf(body.oldStory);
+                
+                // Si l'histoire est trouvée, la retirer
+                if (storyIndex !== -1) {
+                    conversation.stories.splice(storyIndex, 1); // Retire seulement une occurrence
+                }
+                
+                // Ajouter un nouvel élément (ici une chaîne vide `""`)
+                conversation.stories.push(""); 
+                
+                // Sauvegarder le document mis à jour
+                await conversation.save();
+            }
+            
 
             if(user) {
                 console.log(user);
