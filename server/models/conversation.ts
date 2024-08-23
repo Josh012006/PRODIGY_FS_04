@@ -9,10 +9,6 @@ const conversationSchema = new mongoose.Schema({
         type: Array,
         default: []
     },
-    medias: {
-        type: Array,
-        default: []
-    },
 }, { timestamps: true });
 
 

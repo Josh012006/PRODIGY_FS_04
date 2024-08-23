@@ -16,7 +16,7 @@ export default interface User {
     contacts: string[],
     conversations: string[],
     groups: string[],
-    createdAt: Date,
-    updatedAt: Date,
-    __v: number
+    createdAt?: Date,
+    updatedAt?: Date,
+    __v?: number
 }

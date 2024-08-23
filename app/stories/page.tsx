@@ -94,7 +94,7 @@ function StoriesPage() {
             </main>
             {displayStory && <div className="fixed top-0 h-full z-20" style={{backgroundImage: "linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5))"}}>
                 <i className="text-white m-8 cursor-pointer fa-solid fa-x" aria-hidden="true" onClick={() => {setStory(""); setDisplayStory(false);}}></i>
-                <div className="my-20 lg:my-10 flex items-center lg:w-9/12 mx-auto">
+                <div className="my-20 lg:my-8 flex items-center lg:w-7/12 mx-auto">
                     <video className="w-full border-y border-gray-700" controls autoPlay>
                         <source src={`/users/stories/${story}`} type="video/mp4" />
                     </video>

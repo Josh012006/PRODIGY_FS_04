@@ -5,8 +5,7 @@ export default interface Conversation {
     stories: string[],
     members: string[],
     messages: string[],
-    medias: string[],
-    createdAt: Date,
-    updatedAt: Date,
-    __v: number
+    createdAt?: Date,
+    updatedAt?: Date,
+    __v?: number
 }
